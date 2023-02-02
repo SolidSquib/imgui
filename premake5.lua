@@ -1,10 +1,11 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
+    cppdialect "C++17"
     staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -18,17 +19,22 @@ project "ImGui"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
-		"imgui_demo.cpp"
+		"imgui_demo.cpp",
+        "misc/cpp/imgui_stdlib.h",
+        "misc/cpp/imgui_stdlib.cpp"
+	}
+
+    includedirs
+	{
+		"./"
 	}
 
 	filter "system:windows"
-		systemversion "latest"
-		cppdialect "C++17"
+		systemversion "latest"		
 
 	filter "system:linux"
 		pic "On"
 		systemversion "latest"
-		cppdialect "C++17"
 
 	filter "configurations:Debug"
 		runtime "Debug"
